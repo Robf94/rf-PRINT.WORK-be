@@ -1,7 +1,8 @@
 const { fetchTopAlbums, fetchAlbumById } = require("../models/albumsModel");
 
 function getAllAlbums(request, response, next) {
-  fetchTopAlbums()
+  const { countryCode = "gb"} = request.query
+  fetchTopAlbums(countryCode)
     .then((albums) => {
       response.status(200).send({ albums });
     })
