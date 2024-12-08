@@ -13,11 +13,13 @@ function getTopAlbums(request, response, next) {
   const page = parseInt(request.query.page) || 1;
   const limit = parseInt(request.query.limit) || 100;
 
+  const { countryCode = "gb" } = request.query;
+
   if (isNaN(page) || isNaN(limit) || page <= 0 || limit <= 0) {
     return response.status(400).send({ msg: "Bad request" });
   }
 
-  fetchTopAlbums()
+  fetchTopAlbums(countryCode)
     .then((albums) => {
       const startIndex = (page - 1) * limit;
       const endIndex = page * limit;
